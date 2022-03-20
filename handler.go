@@ -134,10 +134,10 @@ func SignIn(c *gin.Context) {
 
  //POST
 type MahasiswaInput struct {
-	Nama string `json:"Nama_lengkap" binding:"required"`
-	NIM string `json:"Nomor_induk" binding:"required"`
+	Nama string `json:"Nama" binding:"required"`
+	NIM string `json:"NIM" binding:"required"`
 	Fakultas string `json:"Fakultas" binding:"required"`
-	Prodi string `json:"Program_studi" binding:"required"`
+	Prodi string `json:"Prodi" binding:"required"`
 	TahunMasuk string `json:"Tahun_masuk" binding:"required"`
 }
 
