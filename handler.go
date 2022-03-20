@@ -1,10 +1,11 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"time"
-
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 //no 1
@@ -128,5 +129,40 @@ func SignIn(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"Message" : "Keyword Judul",
 		"Keyword" : keyword,
+	})
+ }
+
+ //POST
+type MahasiswaInput struct {
+	Nama string `json:"Nama_lengkap" binding:"required"`
+	NIM string `json:"Nomor_induk" binding:"required"`
+	Fakultas string `json:"Fakultas" binding:"required"`
+	Prodi string `json:"Program_studi" binding:"required"`
+	TahunMasuk string `json:"Tahun_masuk" binding:"required"`
+}
+
+ func DataMahasiswa(c *gin.Context) {
+	var mahasiswaInput MahasiswaInput
+
+	err := c.ShouldBindJSON(&mahasiswaInput)
+	if err != nil {
+		errorMessages := []string{}
+		for _, e := range err.(validator.ValidationErrors) {
+			errorMessage := fmt.Sprintf("Error %s, message: %s", e.Field(), e.ActualTag())
+			errorMessages = append(errorMessages, errorMessage)
+		}
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error" : errorMessages,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"Message" : "Berhasil input data",
+		"Time" : time.RFC850,
+		"Nama Mahasiswa" : mahasiswaInput.Nama,
+		"NIM" : mahasiswaInput.NIM,
+		"Fakultas" : mahasiswaInput.Fakultas,
+		"Prodi" : mahasiswaInput.Prodi,
+		"Tahun Masuk" : mahasiswaInput.TahunMasuk,
 	})
  }
