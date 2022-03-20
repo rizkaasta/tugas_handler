@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//no 1
 func Product(c *gin.Context) {
 	judul := c.Query("judul")
 	harga := c.Query("harga")
@@ -33,6 +34,7 @@ func IdProduct(c *gin.Context) {
 	})
 }
 
+//no 2
 func SignUp(c *gin.Context) {
 	nama := c.Query("nama")
 	time := time.RFC850
@@ -83,3 +85,48 @@ func SignIn(c *gin.Context) {
 	})
  }
 
+ //no 3
+ func Anggota(c *gin.Context) {
+	noAnggota := c.Param("no")
+
+	c.JSON(http.StatusOK, gin.H{
+		"Message" : "Nomor Keanggotaan",
+		"No Anggota" : noAnggota,
+	})
+ }
+
+ func Buku(c *gin.Context) {
+	 noBuku := c.Param("no") 
+
+	c.JSON(http.StatusOK, gin.H{
+		"Message" : "Nomor Buku",
+		"Nomor Buku" : noBuku,
+	})
+ }
+
+ func Jurnal(c *gin.Context) {
+	noJurnal := c.Param("no")
+
+	c.JSON(http.StatusOK, gin.H{
+		"Message" : "Nomor Jurnal",
+		"Nomor Jurnal" : noJurnal,
+	})
+ }
+
+ func Pengarang(c *gin.Context) {
+	keyword := c.Param("pengarang")
+
+	c.JSON(http.StatusOK, gin.H{
+		"Message" : "Keyword Pengarang",
+		"Keyword" : keyword,
+	})
+ }
+
+ func Judul(c *gin.Context) {
+	keyword := c.Param("judul")
+
+	c.JSON(http.StatusOK, gin.H{
+		"Message" : "Keyword Judul",
+		"Keyword" : keyword,
+	})
+ }
